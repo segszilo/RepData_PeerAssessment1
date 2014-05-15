@@ -1,0 +1,48 @@
+REPRODUCIBLE RESEARCH PEER ASSESSMENT ASSIGNMENT
+========================================================
+
+This is an R Markdown document showing answers to the assignment for Reproducble Research course as part of the Data Science specialization. The questionas are answered in a sequential manner.
+
+To load data into R Studio
+
+```{r}
+activity <- read.csv("C:/Users/Zilon/Desktop/activity.csv", dec=",")
+```
+
+To make an Histogram of the total number of steps taken each day
+```{r}
+hist(activity$steps)
+```
+
+To calculate the median and mean of the total steps taken each day
+```{r mean and median, echo=TRUE}
+summary(activity$steps)
+```
+
+To draw a time series plot of the 5 minutes interval on the x-axis and the average number of steps taken, veraged across all days on the y-axis.
+```{r time series plot, echo=TRUE}
+plot(activity$interval, activity$steps, type = "l")
+```
+
+
+Inputing Missing values
+========================================================
+To count and report the number of missing values in the whole dataset
+```{r missing values, echo=TRUE}
+sum(!complete.cases(activity))
+```
+
+To fill in the misssing values
+```{r fill missing values, echo=TRUE}
+activity$steps[is.na(activity$steps)] <- mean(activity$steps, na.rm = TRUE)
+```
+To view changes (mean and median) to the new dataset after filling missing values 
+```{r mean and median of the new dataset, echo=TRUE}
+summary(activity$steps)
+```
+
+To draw the histogram of the new dataset of the steps taken each day
+```{r Histogram of steps taken each day after removing missing values, echo=TRUE}
+hist(activity$steps)
+```
+There seems to be no difference in the dataset when after missing values were removed. The major impact was mainly in increasing the average total steps taken per day. Also, the 3rd Quartile increased from 16 to 37.4.
